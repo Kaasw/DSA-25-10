@@ -1,78 +1,45 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class Test {
     public static void main(String[] args) {
+        int size = 0;
+        List<Integer> square = new ArrayList<>();
+        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        sc.nextLine();
-        List<String> name = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            name.add(sc.nextLine());
+        int a = sc.nextInt();
+        int[] n = new int[a];
+        for (int i = 0; i < a; i++) {
+            n[i] = sc.nextInt();
+            list1.add(n[i]);
         }
 
-
-
-        for (int i = 0; i < name.size(); i++) {
-            String temp = name.get(i);
-            String reverse = "";
-            for (int j = temp.length() - 1; j >= 0; j--) {
-                reverse += temp.charAt(j);
-            }
-            name.set(i, reverse);
-        }
-
-
-        List<String> firstName = new ArrayList<>();
-        for (int i = 0; i < name.size(); i++) {
-            String temp = name.get(i);
-            String first = "";
-            for (int j = 0; j < temp.length(); j++) {
-                if (temp.charAt(j) == ' ') {
-                    break;
-                }
-                first += temp.charAt(j);
-            }
-            firstName.add(first);
-        }
-
-
-        for (int i = 0; i < firstName.size(); i++) {
-            String temp = firstName.get(i);
-            String reverse = "";
-            for (int j = temp.length() - 1; j >= 0; j--) {
-                reverse += temp.charAt(j);
-            }
-            firstName.set(i, reverse);
-        }
-
-
-        for (int i = 0; i < firstName.size(); i++) {
-            for (int j = i + 1; j < firstName.size(); j++) {
-                if (firstName.get(i).compareTo(firstName.get(j)) > 0) {
-                    String temp = firstName.get(i);
-                    firstName.set(i, firstName.get(j));
-                    firstName.set(j, temp);
-                }
+        for (int i = 0; i < a; i++) {
+            if (Check(n[i])) {
+                square.add(n[i]);
+                list2.add(i);
             }
         }
 
+        Collections.sort(square,Collections.reverseOrder());
 
+        for (int i = 0; i < list2.size(); i++) {
+            list1.set(list2.get(i),square.get(i));
 
-        int count = 1;
-        for (int i = 0; i < firstName.size() -1 ; i++) {
-
-            if (firstName.get(i).equals(firstName.get(i + 1))) {
-                count++;
-            } else {
-                System.out.println(firstName.get(i) + " " + count);
-                count = 1;
-            }
         }
-
-        System.out.print(firstName.get(firstName.size() - 1) + " " + count);
-        
-
+            //print list 1
+        for (int i = 0; i < list1.size(); i++) {
+            System.out.print(list1.get(i) + " ");
+        }
     }
+
+    public static boolean Check(int n) {
+        int temp = (int)Math.sqrt(n);
+        return temp * temp == n;
+    }
+
+
 }
